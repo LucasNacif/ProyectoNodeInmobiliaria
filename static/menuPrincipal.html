@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>REALTY POBRES</title>
+	<style>
+		body {
+			font-family: 'Roboto', sans-serif;
+			margin: 0;
+			padding: 0;
+			background-color: #f4f4f4;
+			color: #333;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		header {
+			background-color: #1a1a1a;
+			color: #fff;
+			text-align: center;
+			padding: 30px 0;
+			width: 100%;
+			border-bottom: 5px solid #3498db;
+		}
+
+		h1 {
+			margin: 0;
+			font-size: 2em;
+		}
+
+		h2 {
+			margin-top: 10px;
+			font-size: 1.2em;
+			color: #3498db;
+		}
+
+		main {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+			width: 80%;
+			margin-top: 20px;
+		}
+
+		form {
+			width: 100%;
+			padding: 19px;
+			background-color: #3498db;
+			border-radius: 5px;
+			box-sizing: border-box;
+			margin-right: 20px;
+			margin-left: -105px;
+			max-width: fit-content;
+		}
+
+		form h2 {
+			margin-bottom: 15px;
+			color: #fff;
+			width: 145px;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 10px;
+			color: #fff;
+		}
+
+		input,
+		textarea {
+			width: calc(100% - 20px);
+			padding: 10px;
+			margin-bottom: 15px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			box-sizing: border-box;
+		}
+
+		button {
+			background-color: #1a1a1a;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			display: block;
+			margin: auto;
+		}
+
+		button:hover {
+			background-color: #000;
+		}
+
+		.properties {
+			flex-grow: 1;
+			max-width: fit-content;
+			padding: 20px;
+			background-color: #3498db;
+			border-radius: 5px;
+			box-sizing: border-box;
+			color: #fff;
+			margin-right: 20px;
+			height: auto;
+
+		}
+
+		#propDisp {
+			max-width: 100%;
+			background-color: #3498db;
+			border-radius: 5px;
+			box-sizing: border-box;
+			color: #fff;
+			margin-top: 20px;
+
+		}
+
+		table {
+			border-collapse: collapse;
+			margin-top: 10px;
+		}
+
+		th,
+		td {
+			padding: 12px;
+			text-align: left;
+			border-bottom: 1px solid #fff;
+			white-space: nowrap;
+		}
+
+		th {
+			background-color: #1a1a1a;
+			color: #fff;
+		}
+
+		tr:nth-child(even) {
+			background-color: #2c3e50;
+		}
+
+		tr:hover {
+			background-color: #1a242f;
+		}
+	</style>
+	<script>
+		async function cargarPropiedades() {
+			try {
+				const response = await fetch('http://localhost:3000/obtener');
+				const data = await response.text();
+				document.getElementById('propiedadesDisponibles').innerHTML = data;
+			} catch (error) {
+				console.error('Error al obtener propiedades:', error);
+			}
+		}
+		cargarPropiedades();
+	</script>
+</head>
+
+<body>
+	<header>
+		<h1>REALTY POBRES</h1>
+		<h2>Su inmobiliaria de confianza</h2>
+	</header>
+
+	<main>
+		<form action="http://localhost:3000/nuevo" method="POST">
+			<h2>Nueva Propiedad</h2>
+			<div>
+				<label for="Descripcion">Descripción:</label>
+				<input type="text" id="Descripcion" name="descripcion" required>
+			</div>
+
+			<div>
+				<label for="localidad">Localidad:</label>
+				<input type="text" id="localidad" name="localidad" required>
+			</div>
+
+			<div>
+				<label for="ubicacion">Ubicación:</label>
+				<input type="text" id="ubicacion" name="ubicacion" required>
+			</div>
+
+			<div>
+				<label for="nomPropietario">Nombre del Propietario:</label>
+				<input type="text" id="nomPropietario" name="nomPropietario" required>
+			</div>
+
+			<div>
+				<label for="apePropietario">Apellido del Propietario:</label>
+				<input type="text" id="apePropietario" name="apePropietario" required>
+			</div>
+
+			<div>
+				<label for="telPropietario">Teléfono del Propietario:</label>
+				<input type="tel" id="telPropietario" name="telPropietario" required>
+			</div>
+
+			<div>
+				<label for="precio">Precio:</label>
+				<input type="number" id="precio" name="precio" required>
+			</div>
+
+			<div>
+				<label for="dimension">Dimensión:</label>
+				<input type="text" id="dimension" name="dimension" required>
+			</div>
+
+			<button type="submit">Crear Propiedad</button>
+		</form>
+
+		<div class="properties" id="propiedadesDisponibles"></div>
+	</main>
+</body>
+
+</html>
